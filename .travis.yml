@@ -1,6 +1,6 @@
 language: java
 script: 
  - mvn test
- - chceckstyle:check
+#  - chceckstyle:check
 after_success:
  - bash <(curl -s https://codecov.io/bash)
