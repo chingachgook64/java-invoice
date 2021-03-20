@@ -3,11 +3,13 @@ package pl.edu.agh.mwo.invoice;
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
 
 import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
 
+	private final int number = Math.abs(new Random().nextInt());
 	private Map <Product, Integer> products = new LinkedHashMap<>();
 
     public void addProduct(Product product) {
@@ -84,4 +86,9 @@ public class Invoice {
    
     	return total;
     }
+
+	public int getNumber() {
+		
+		return number;
+	}
 }

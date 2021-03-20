@@ -19,7 +19,7 @@ public class InvoiceTest {
     public void createEmptyInvoiceForTheTest() {
         invoice = new Invoice();
     }
-
+    
     @Test
     public void testEmptyInvoiceHasEmptySubtotal() {
         Assert.assertThat(BigDecimal.ZERO, Matchers.comparesEqualTo(invoice.getSubtotal()));
@@ -103,4 +103,52 @@ public class InvoiceTest {
     public void testInvoiceWithNegativeQuantity() {
         invoice.addProduct(new DairyProduct("Zsiadle mleko", new BigDecimal("5.55")), -1);
     }
+    
+    @Test
+    public void testInvoiceHasNumber() {
+    	int number = invoice.getNumber();
+    	
+    	Assert.assertTrue(number > 0);
+   
+    }
+    
+    @Test
+    public void testTwoInvoicesHaveDifferentNumbers() {
+    	int number1 = invoice.getNumber();
+    	int number2 =  new Invoice().getNumber();
+    	
+    	Assert.assertNotEquals(number1, number2);
+    }
+    
+    @Test
+    public void testTheSameInvoiceHasTheSameNumber() {
+    	Assert.assertEquals(invoice.getNumber(), invoice.getNumber());
+    }
+    
+    
+//    @Test 
+//    public void testInvoiceHasProductList() {
+//    	
+//    }
+//    
+//    @Test 
+//    public void testInvoiceHasNoDuplicatedProductsInProductList() {
+//    	
+//    	
+//    }
+//    
+//    @Test 
+//    public void testInvoiceHasProperValueOfExciseForManyProducts() {
+//    	
+//    }
+//    
+//    @Test 
+//    public void testInvoiceHasNoExciseForManyProductsOnTransportDay() {
+//    	
+//    }
+    
+    
+    
+    
+
 }
