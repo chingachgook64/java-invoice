@@ -276,19 +276,6 @@ public class InvoiceTest {
 		}
     	
     }
-//    
-//    @Test 
-//    public void testInvoiceHasProperValueOfExciseForManyProducts() {
-//    	
-//    }
-//    
-//    @Test 
-//    public void testInvoiceHasNoExciseForManyProductsOnTransportDay() {
-//    	
-//    }
-    
-    
-    
-    
+ 
 
 }

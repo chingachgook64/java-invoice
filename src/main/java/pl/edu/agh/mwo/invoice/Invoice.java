@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
 
+import pl.edu.agh.mwo.invoice.product.BottleOfWine;
 import pl.edu.agh.mwo.invoice.product.DairyProduct;
 import pl.edu.agh.mwo.invoice.product.Product;
 import pl.edu.agh.mwo.invoice.product.TaxFreeProduct;
@@ -25,7 +26,7 @@ public class Invoice {
       invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")), 3);
       invoice.addProduct(new TaxFreeProduct("Kubek", new BigDecimal("5")), 2);
       invoice.addProduct(new DairyProduct("Zsiadle mleko", new BigDecimal("5.55")));
-	   
+      invoice.addProduct(new BottleOfWine("Winiacz", new BigDecimal("26.55"))); 
 	   System.out.println(invoice.getProductListDetails());
    }
 
