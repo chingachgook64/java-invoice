@@ -63,8 +63,8 @@ public class ProductTest {
         Product product1 = new BottleOfWine("Chateau Bordeaux ", new BigDecimal("26.0"));
         Product product2 = new FuelCanister("5l Petrol ", new BigDecimal("24.50"));
        
-        Assert.assertThat(new BigDecimal("38.82"), Matchers.comparesEqualTo(product1.getPriceWithTax()));
-        Assert.assertThat(new BigDecimal("36.98"), Matchers.comparesEqualTo(product2.getPriceWithTax()));
+        Assert.assertThat(new BigDecimal("38.8188"), Matchers.comparesEqualTo(product1.getPriceWithTax()));
+        Assert.assertThat(new BigDecimal("36.9738"), Matchers.comparesEqualTo(product2.getPriceWithTax()));
     }
   
 
