@@ -1,6 +1,12 @@
 package pl.edu.agh.mwo.invoice;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;
@@ -126,10 +132,115 @@ public class InvoiceTest {
     }
     
     
-//    @Test 
-//    public void testInvoiceHasProductList() {
-//    	
-//    }
+    @Test 
+    public void testInvoiceHasProductListDetails() {
+    	
+    	invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
+        invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
+        
+        Assert.assertTrue(invoice.getProductListDetails().length() > 0);
+    	
+    }
+    
+    @Test 
+    public void testInvoiceHasNumberInHeaderOfProductListDetail() {
+    	
+    	invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
+        invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
+        String number = String.valueOf(invoice.getNumber());
+        
+        Assert.assertTrue(invoice.getProductListDetails().contains(number));
+    	
+    }
+    
+    @Test 
+    public void testInvoiceHasRightNumberOfLinesOfProductListDetail() {
+    	
+    	invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
+        invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
+        int numberOfProducts = invoice.getProducts().size();
+        String[] lines = invoice.getProductListDetails().split("\n");
+        
+        //Two lines are reserved for header and summary 
+        Assert.assertEquals(numberOfProducts, lines.length-2);
+    	
+    }
+    
+    @Test 
+    public void testInvoiceProductListDetailHasProductsNames() {
+    	
+    	invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
+        invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
+        Map <Product, Integer> products = invoice.getProducts();
+        
+        for (Map.Entry<Product, Integer> entry: products.entrySet()) {
+			
+          	 Assert.assertTrue(invoice.getProductListDetails()
+          			 .contains(entry.getKey().getName()));
+   		
+   		}
+    	
+    }
+    
+    @Test 
+    public void testInvoiceProductListDetailHasProductsQuantities() {
+    	
+    	invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
+        invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
+        Map <Product, Integer> products = invoice.getProducts();
+
+        
+        for (Map.Entry<Product, Integer> entry: products.entrySet()) {
+			
+       	 Assert.assertTrue(invoice.getProductListDetails()
+       			 .contains(entry.getValue() + " sztuk"));
+		
+		}
+    	
+    }
+    
+    @Test 
+    public void testInvoiceProductListDetailHasProductsPrices() {
+    	
+    	invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
+        invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
+        Map <Product, Integer> products = invoice.getProducts();
+        
+        
+        for (Map.Entry<Product, Integer> entry: products.entrySet()) {
+			
+        	 Assert.assertTrue(invoice.getProductListDetails()
+        			 .contains(String.valueOf(entry.getKey().getPrice()
+        					 .multiply(BigDecimal.valueOf(entry.getValue())))));
+		
+		}
+    	
+    }
+    
+    @Test 
+    public void testInvoiceProductListDetailHasProperSummary() {
+    	
+    	invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
+        invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
+        Map <Product, Integer> products = invoice.getProducts();
+        
+        int totalNumberOfProducts = 0;
+        
+        for (Map.Entry<Product, Integer> entry: products.entrySet()) {
+			
+        	totalNumberOfProducts += entry.getValue();
+		}
+        
+        Assert.assertTrue(invoice.getProductListDetails().contains("Liczba pozycji: " + totalNumberOfProducts));
+        
+        
+     
+    	
+    }
+    
+    
+    
+    
 //    
 //    @Test 
 //    public void testInvoiceHasNoDuplicatedProductsInProductList() {

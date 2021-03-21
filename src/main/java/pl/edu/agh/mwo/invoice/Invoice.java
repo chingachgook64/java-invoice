@@ -5,14 +5,26 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
 
+import pl.edu.agh.mwo.invoice.product.DairyProduct;
 import pl.edu.agh.mwo.invoice.product.Product;
+import pl.edu.agh.mwo.invoice.product.TaxFreeProduct;
 
 public class Invoice {
 
 	private final int number = Math.abs(new Random().nextInt());
 	private Map <Product, Integer> products = new LinkedHashMap<>();
 
-    public void addProduct(Product product) {
+   public static void main(String[] args) {
+	
+	  Invoice invoice = new Invoice();
+	  invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
+	  invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
+      invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
+	   
+	   System.out.println(invoice.getProductListDetails());
+   }
+
+	public void addProduct(Product product) {
     	
     	if(product == null ||  product.equals("")) {
     		
@@ -91,4 +103,29 @@ public class Invoice {
 		
 		return number;
 	}
+	
+	 public Map<Product, Integer> getProducts() {
+			return products;
+		}
+	
+	public String getProductListDetails () {
+		
+		String productListDetails = "Faktura numer: ";
+		int totalNumberOfProducts = 0;
+		
+		productListDetails +=  String.valueOf(this.getNumber()) + "\n";
+		
+		for (Map.Entry<Product, Integer> entry: products.entrySet()) {
+			
+			productListDetails += entry.getKey().getName() + " " + entry.getValue() + " sztuk " 
+			+ (entry.getKey().getPrice().multiply(BigDecimal.valueOf(entry.getValue()))) + "\n";
+			
+			totalNumberOfProducts += entry.getValue();
+		}
+		
+		productListDetails += "Liczba pozycji: " + String.valueOf(totalNumberOfProducts);
+		
+		return productListDetails;
+	}
+
 }
