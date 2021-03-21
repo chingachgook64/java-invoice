@@ -20,6 +20,11 @@ public class Invoice {
 	  invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
 	  invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
       invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
+      invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
+      invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")), 4);
+      invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")), 3);
+      invoice.addProduct(new TaxFreeProduct("Kubek", new BigDecimal("5")), 2);
+      invoice.addProduct(new DairyProduct("Zsiadle mleko", new BigDecimal("5.55")));
 	   
 	   System.out.println(invoice.getProductListDetails());
    }
@@ -31,6 +36,17 @@ public class Invoice {
     		throw new IllegalArgumentException("Product can't be null or empty");
     	}
     	
+    	
+		for (Map.Entry<Product, Integer> entry: products.entrySet()) {
+								
+			if(entry.getKey().getName().equalsIgnoreCase(product.getName())) {
+				
+				entry.setValue((entry.getValue() + 1));
+				
+				return;
+			}										            	
+		}
+    	
         this.products.put(product, 1);
     }
 
@@ -40,6 +56,16 @@ public class Invoice {
     		
     		throw new IllegalArgumentException("Product can't be null or empty. Also quantity cant't be null and must be greather than 0");
     	}
+    	
+    	for (Map.Entry<Product, Integer> entry: products.entrySet()) {
+			
+			if(entry.getKey().getName().equalsIgnoreCase(product.getName())) {
+				
+				entry.setValue((entry.getValue() + quantity));
+				
+				return;
+			}										            	
+		}
         
     	for (int i = 0; i <= quantity; i++) {
     		

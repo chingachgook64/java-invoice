@@ -143,7 +143,7 @@ public class InvoiceTest {
     }
     
     @Test 
-    public void testInvoiceHasNumberInHeaderOfProductListDetail() {
+    public void testInvoiceHasNumberInHeaderOfProductListDetails() {
     	
     	invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
         invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
@@ -154,7 +154,7 @@ public class InvoiceTest {
     }
     
     @Test 
-    public void testInvoiceHasRightNumberOfLinesOfProductListDetail() {
+    public void testInvoiceHasRightNumberOfLinesOfProductListDetails() {
     	
     	invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
         invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
@@ -167,7 +167,7 @@ public class InvoiceTest {
     }
     
     @Test 
-    public void testInvoiceProductListDetailHasProductsNames() {
+    public void testInvoiceProductListDetailsHasProductsNames() {
     	
     	invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
         invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
@@ -183,7 +183,7 @@ public class InvoiceTest {
     }
     
     @Test 
-    public void testInvoiceProductListDetailHasProductsQuantities() {
+    public void testInvoiceProductListDetailsHasProductsQuantities() {
     	
     	invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
         invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
@@ -200,7 +200,7 @@ public class InvoiceTest {
     }
     
     @Test 
-    public void testInvoiceProductListDetailHasProductsPrices() {
+    public void testInvoiceProductListDetailsHasProductsPrices() {
     	
     	invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
         invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
@@ -218,7 +218,7 @@ public class InvoiceTest {
     }
     
     @Test 
-    public void testInvoiceProductListDetailHasProperSummary() {
+    public void testInvoiceProductListDetailsHasProperSummary() {
     	
     	invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
         invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
@@ -233,20 +233,49 @@ public class InvoiceTest {
         
         Assert.assertTrue(invoice.getProductListDetails().contains("Liczba pozycji: " + totalNumberOfProducts));
         
-        
-     
-    	
     }
     
     
+    @Test 
+    public void testInvoiceHasNoDuplicatedProductsIneProductListDetailsSingleAdd() {
+    	
+    	invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")));
+        invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
+        invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")));
+        
+        Map <Product, Integer> products = invoice.getProducts();
+        String productListDetails = invoice.getProductListDetails();
+        List<String> productNames = new ArrayList<String>();
+    	
+    	for (Map.Entry<Product, Integer> entry: products.entrySet()) {
+			
+        	String name = entry.getKey().getName();
+        	Assert.assertFalse(productNames.contains(name));
+        	productNames.add(name);
+		}
+    	
+    }
     
-    
-//    
-//    @Test 
-//    public void testInvoiceHasNoDuplicatedProductsInProductList() {
-//    	
-//    	
-//    }
+    @Test 
+    public void testInvoiceHasNoDuplicatedProductsIneProductListDetailsBulkAdd() {
+    	
+    	invoice.addProduct(new TaxFreeProduct("Owoce", new BigDecimal("200")), 4);
+        invoice.addProduct(new DairyProduct("Maslanka", new BigDecimal("100")), 3);
+        invoice.addProduct(new TaxFreeProduct("Kubek", new BigDecimal("5")), 2);
+        invoice.addProduct(new DairyProduct("Zsiadle mleko", new BigDecimal("5.55")));
+        
+        Map <Product, Integer> products = invoice.getProducts();
+        String productListDetails = invoice.getProductListDetails();
+        List<String> productNames = new ArrayList<String>();
+    	
+    	for (Map.Entry<Product, Integer> entry: products.entrySet()) {
+			
+        	String name = entry.getKey().getName();
+        	Assert.assertFalse(productNames.contains(name));
+        	productNames.add(name);
+		}
+    	
+    }
 //    
 //    @Test 
 //    public void testInvoiceHasProperValueOfExciseForManyProducts() {
