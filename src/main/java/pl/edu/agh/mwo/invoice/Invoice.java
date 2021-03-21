@@ -28,6 +28,8 @@ public class Invoice {
       invoice.addProduct(new DairyProduct("Zsiadle mleko", new BigDecimal("5.55")));
       invoice.addProduct(new BottleOfWine("Winiacz", new BigDecimal("26.55"))); 
 	   System.out.println(invoice.getProductListDetails());
+	   
+	   
    }
 
 	public void addProduct(Product product) {

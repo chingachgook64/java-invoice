@@ -63,7 +63,7 @@ public abstract class Product {
 
 
    public BigDecimal getPriceWithTax() {
-        return (price.add((price.multiply(taxPercent)))).setScale(2, RoundingMode.CEILING);
+        return (price.add((price.multiply(taxPercent))));
     }
     
     
